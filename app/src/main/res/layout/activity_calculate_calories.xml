@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DC5959"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".calculate_calories">
+
+    <ImageView
+        android:id="@+id/Counter_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="283dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/Counter_Tittleview"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:text=""
+        tools:layout_marginTop="15dp" />
+
+    <TextView
+        android:id="@+id/Discreption_counter"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text=""
+        tools:layout_editor_absoluteX="176dp"
+        tools:layout_editor_absoluteY="56dp" />
+
+
+    <ListView
+        android:id="@+id/listView_Counter"
+        android:layout_width="374dp"
+        android:layout_height="216dp"
+        android:background="#DC9999"
+        tools:layout_editor_absoluteX="106dp" />
+
+    <TextView
+        android:id="@+id/Calory_Result"
+        android:layout_width="350dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="177dp"
+        android:layout_marginEnd="176dp"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/Back_button_Counter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listView_Counter" />
+
+
+    <Button
+        android:id="@+id/Back_button_Counter"
+        android:layout_width="367dp"
+        android:layout_height="62dp"
+        android:layout_margin="51dp"
+        android:background="#DC9090"
+        android:backgroundTint="#DC9090"
+        android:stateListAnimator="@android:animator/fade_in"
+        android:text="@string/back"
+        app:circularflow_radiusInDP="18dp"
+        app:cornerRadius="28dp"
+        tools:layout_editor_absoluteX="28dp"
+        tools:layout_editor_absoluteY="635dp" />
+
+
+</LinearLayout>
