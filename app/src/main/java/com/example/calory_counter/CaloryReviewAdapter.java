@@ -13,17 +13,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class CaloryReviewAdapter extends RecyclerView.Adapter<CaloryReviewAdapter.ViewHolder> {
-        ViewHolder.OnItemClickListener OnClicklistener;
     private List<Recipe> cardItems;
-    ArrayAdapter<Recipe> adapter;
+    private OnItemClickListener onClickListener;
+
     public CaloryReviewAdapter(List<Recipe> cardItems) {
         this.cardItems = cardItems;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onClickListener = listener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-         adapter = new ArrayAdapter<>(parent.getContext(), android.R.layout.simple_list_item_1, cardItems);
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.calorycard, parent, false);
         return new ViewHolder(view);
     }
@@ -34,8 +41,21 @@ public class CaloryReviewAdapter extends RecyclerView.Adapter<CaloryReviewAdapte
         holder.imageView.setImageResource(cardItem.getImageResource());
         holder.titleTextView.setText(cardItem.getName());
         holder.discreption.setText(cardItem.printingredients());
-        ArrayAdapter<String> ingredientsAdapter = new ArrayAdapter<>( holder.itemView.getContext(), android.R.layout.simple_list_item_1, cardItem.getIngredients());
+
+        // Set up the ingredients list
+        ArrayAdapter<String> ingredientsAdapter = new ArrayAdapter<>(holder.itemView.getContext(),
+                android.R.layout.simple_list_item_1, cardItem.getIngredients());
         holder.examples.setAdapter(ingredientsAdapter);
+
+        // Set up the click listener for each item
+        holder.itemView.setOnClickListener(v -> {
+            if (onClickListener != null) {
+                int currentPosition = holder.getAdapterPosition();
+                if (currentPosition != RecyclerView.NO_POSITION) {
+                    onClickListener.onItemClick(currentPosition);
+                }
+            }
+        });
     }
 
     @Override
@@ -43,45 +63,18 @@ public class CaloryReviewAdapter extends RecyclerView.Adapter<CaloryReviewAdapte
         return cardItems.size();
     }
 
-      static class ViewHolder extends RecyclerView.ViewHolder {
-        private OnItemClickListener OnClicklisten;
+    static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView titleTextView;
         ListView examples;
-        TextView discreption ;
+        TextView discreption;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             imageView = itemView.findViewById(R.id.cardimageid);
             titleTextView = itemView.findViewById(R.id.CardTextId);
             examples = itemView.findViewById(R.id.cardNoteId);
             discreption = itemView.findViewById(R.id.discreption);
-
-            itemView.setOnClickListener(v -> {
-                if (OnClicklisten != null) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        OnClicklisten.onItemClick(position);
-                    }
-                }
-            });
-
-                    }
-           interface OnItemClickListener {
-              void onItemClick(int position);
-          }
-
-
-          public void setOnItemClickListener(OnItemClickListener listener) {
-              this.OnClicklisten = listener;
-          }
-      }
-
-      public void set(ViewHolder.OnItemClickListener listener) {
-          this.OnClicklistener = listener;
-      }
-
+        }
     }
-
-
+}
